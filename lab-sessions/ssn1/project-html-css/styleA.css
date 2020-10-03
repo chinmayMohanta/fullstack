@@ -1,0 +1,8 @@
+
+.box {
+    display: inline-block;
+    height: 100%;
+    white-space: nowrap;
+    align-content: center;
+
+}

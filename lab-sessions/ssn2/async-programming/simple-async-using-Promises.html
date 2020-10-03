@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+    <meta charset="utf-8">
+    <title>Asynchronous programming with Promises</title>
+</head>
+<body>
+
+<script>
+
+    let promise = fetch('coffee.jpg'); // Creates a Promise
+    // Define the "then" method of the Promise that receives the Response object once the state of the Promise changes from Pending to fulfilled
+    let promise2 = promise.then(response => {
+        if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+        } else {
+            return response.blob();
+        }
+    });
+
+    let promise3 = promise2.then(myBlob => {
+        let objectURL = URL.createObjectURL(myBlob);
+        let image = document.createElement('img');
+        image.src = objectURL;
+        document.body.appendChild(image);
+
+    })
+
+    let errorCase = promise3.catch(e => { // Define the "catch" method if the Promise id rejected
+        console.log('There has been a problem with your fetch operation: ' + e.message);
+    });
+
+</script>
+<pre>
+    <h1> Using Promises </h1>
+    <a href="https://developer.mozilla.org/en-US/docs/Learn/JavaScript/Asynchronous/Async_await"> Readme: Promises </a>
+</pre>
+</body>
+</html>

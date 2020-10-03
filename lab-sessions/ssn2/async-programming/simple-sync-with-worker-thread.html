@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Simple synchronous JavaScript example</title>
+</head>
+<body>
+<h2>Unblocking main thread by delegating tasks to the worker thread</h2>
+<button>Click me</button>
+<script>
+    const btn = document.querySelector('button');
+    const worker = new Worker('worker.js');
+
+    btn.addEventListener('click', () => {
+        worker.postMessage('Go!'); // fire the worker
+
+        let pElem = document.createElement('p');
+        pElem.textContent = 'This is a newly-added paragraph.';
+        document.body.appendChild(pElem);
+    });
+
+    worker.onmessage = function(e) { // handler collects the result from the worker
+        console.log(e.data);
+    }
+</script>
+<pre>
+
+<a href="https://developer.mozilla.org/en-US/docs/Learn/JavaScript/Asynchronous/Concepts" >Read me : General Asynchronous Concepts</a>
+</pre>
+</body>
+</html>
